@@ -1,0 +1,26 @@
+## 🧠 Your key rule
+
+Write this in your Docker notes:
+
+```text
+Docker builds layers from top to bottom.
+
+If a layer changes / cache is invalidated:
+    → that layer is rebuilt
+    → all subsequent layers are rebuilt
+
+Therefore:
+
+Stable instructions → put first
+Frequently changing instructions → put later
+```
+
+And the most important practical example:
+
+```dockerfile
+COPY package*.json ./
+RUN npm install
+COPY . .
+```
+
+This prevents a normal source-code change from unnecessarily running `npm install` again.
